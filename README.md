@@ -11,7 +11,7 @@ Clone the repo and complete the configuration steps below
 git clone https://github.com/vintrocode/elmo-brownie.git
 ```
 
-Now edit the `.env` file and paste in your values here. **NOTE: MAKE SURE THE `.env` FILE IS IN YOUR `.gitignore`, DON'T PUSH YOUR KEYS TO GITHUB AND GET REKT**
+Now create a `.env` file and paste the code chunk below, substituting in your values.  **NOTE: MAKE SURE THE `.env` FILE IS IN YOUR `.gitignore`, DON'T PUSH YOUR KEYS TO GITHUB AND GET REKT**
 
 ```
 METAMASK_PUBLIC_ADDRESS={your address here}
@@ -27,3 +27,7 @@ docker-compose up -d --build
 ```
 
 Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the image and get to work!
+
+## Next Steps
+
+To continue with the example, click on the `elmo/` folder and follow the readme there.
