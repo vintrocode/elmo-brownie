@@ -23,12 +23,13 @@ RUN pipx install git+https://github.com/eth-brownie/brownie.git@feat-hardhat
 RUN npm install -g ganache-cli
 RUN npm install -g yarn
 
+
 WORKDIR "/home/project/client"
 RUN yarn install
-RUN npm install --save-dev hardhat@dtt
 
 
 WORKDIR "/home/project"
+RUN npm install --save-dev hardhat@dtt
 
 
 
