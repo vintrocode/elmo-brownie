@@ -1,31 +1,29 @@
-# Brownie Docker Template
+# ELMO -- Brownie version
 
-This repo allows anyone to get up and running developing dapps in a docker container. Spin up the docker container, clone your favorite brownie mix, and get going
+ELMO is Venmo but on Ethereum Layer 2. The dev goal of this project was to get experience building a dapp, so the use case was kept simple. The dapp goal is to onboard people to crypto on a cheap, seamless way.  
 
-### Getting Started
+This repo runs a docker container with brownie and react. Currently, it installs a specific PR of brownie (`feat-hardhat`) for operability with the [Optimism Virtual Machine](https://github.com/ethereum-optimism/optimism-tutorial) to build dapps on Layer 2. Ensure you have `docker` installed before going further.
 
-TODO: create .env
+## Getting Started
+
+Clone the repo and complete the configuration steps below
+```
+git clone https://github.com/vintrocode/elmo-brownie.git
+```
+
+Now edit the `.env` file and paste in your values here. **NOTE: MAKE SURE THE `.env` FILE IS IN YOUR `.gitignore`, DON'T PUSH YOUR KEYS TO GITHUB AND GET REKT**
+
 ```
 METAMASK_PUBLIC_ADDRESS={your address here}
 METAMASK_SECRET_KEY={your secret here}
 PROVIDER_MAINNET={your mainnet url here}
 PROVIDER_KOVAN={your kovan url here}
+WEB3_INFURA_PROJECT_ID={your infura project id here}
 ```
 
-TODO: brownie bake something
-
-TODO: edit docker-compose.yaml with brownie folder
+Now you're ready to build and run the container! This may take a few minutes but it's a one time cost.
 ```
-    volumes:
-      - ./{your folder here}:/home/project
-```
-
-
-Ensure you have docker installed locally and run the following commands:
-```
-git clone https://github.com/vintrocode/eth-brownie-docker-template.git
-cd eth-brownie-docker-template
 docker-compose up -d --build
 ```
 
-Once that's finished you should have a docker container running in the background. Either docker exec into it or use vscode to connect.
+Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the image and get to work!

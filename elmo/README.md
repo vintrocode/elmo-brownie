@@ -4,6 +4,8 @@ This mix comes with everything you need to start using [React](https://reactjs.o
 
 ## Installation
 
+**VINTROCODE NOTE**: skip to step 4, all the installations were done in docker.
+
 1. [Install Brownie](https://eth-brownie.readthedocs.io/en/stable/install.html), if you haven't already. You must be using version `1.9.0` or newer.
 
 2. Download the mix.
