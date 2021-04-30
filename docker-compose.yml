@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  eth-brownie:
+    user: root
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    environment:
+      METAMASK_PUBLIC_ADDRESS: ${METAMASK_PUBLIC_ADDRESS}
+      METAMASK_SECRET_KEY: ${METAMASK_SECRET_KEY}
+      PROVIDER_KOVAN: ${PROVIDER_KOVAN}
+      PROVIDER_MAINNET: ${PROVIDER_MAINNET}
+      CHOWN_HOME: 'yes'
+      CHOWN_HOME_SUDO: '-R'
+      GRANT_SUDO: 'yes'
+    image: eth-brownie:latest
+    ports:
+      - 127.0.0.1:3000:3000
+    volumes:
+      - ./elmo:/home/project
+    tty: true  # persists the container

@@ -1,0 +1,4 @@
+py-solc-x
+pandas
+urllib3
+chardet
