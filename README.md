@@ -28,6 +28,14 @@ docker-compose up -d --build
 
 Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the image and get to work!
 
+## Running the Frontend
+
+If the contracts have already been deployed, you can spin up the frontend.
+```
+cd client
+yarn start
+```
+
 ## Next Steps
 
 To continue with the example, click on the `elmo/` folder and follow the readme there.
