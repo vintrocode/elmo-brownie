@@ -27,10 +27,11 @@ This mix comes with everything you need to start using [React](https://reactjs.o
         └─host: https://kovan.optimism.io
     ```
 
-2. Add the OVM compiler so our code can use it. From the optimism-tutorial...
+2. Add the following: the OVM compiler, optimism contracts
 
     ```
     $ yarn add @eth-optimism/hardhat-ovm
+    $ yarn add @eth-optimism/contracts
     ```
 
 

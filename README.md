@@ -27,6 +27,10 @@ docker-compose up -d --build
 ```
 
 Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the image and get to work!
+```
+# Access a shell within the container
+$ docker exec -it elmo-brownie_eth-brownie_1 /bin/bash
+```
 
 ## Next Steps
 
