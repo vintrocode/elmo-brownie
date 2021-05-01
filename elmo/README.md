@@ -2,24 +2,7 @@
 
 This mix comes with everything you need to start using [React](https://reactjs.org/) with a Brownie project.
 
-## Installation
-
-**VINTROCODE NOTE**: skip to step 4, all the installations were done in docker.
-
-1. [Install Brownie](https://eth-brownie.readthedocs.io/en/stable/install.html), if you haven't already. You must be using version `1.9.0` or newer.
-
-2. Download the mix.
-
-    ```bash
-    brownie bake react-mix
-    ```
-
-3. Install the React client dependencies.
-
-    ```bash
-    cd client
-    yarn install
-    ```
+## Setup
 
 4. In [MetaMask](https://metamask.io/) or another web3 browser extension, load the following seed phrase:
 
@@ -31,10 +14,30 @@ This mix comes with everything you need to start using [React](https://reactjs.o
 
 ## Usage
 
-1. Open the Brownie console. Starting the console launches a fresh [Ganache](https://www.trufflesuite.com/ganache) instance in the background.
+1. Add Kovan Optimism to the networks list in `brownie`.
+
+    ```
+    $ brownie networks add Ethereum optimism-kovan host=https://kovan.optimism.io chainid=69
+    Brownie v1.14.4 - Python development framework for Ethereum
+
+    SUCCESS: A new network 'optimism-kovan' has been added
+    └─optimism-kovan
+        ├─id: optimism-kovan
+        ├─chainid: 69
+        └─host: https://kovan.optimism.io
+    ```
+
+2. Add the OVM compiler so our code can use it. From the optimism-tutorial...
+
+    ```
+    $ yarn add @eth-optimism/hardhat-ovm
+    ```
+
+
+3. Open the Brownie console. Starting the console launches a fresh [Ganache](https://www.trufflesuite.com/ganache) instance in the background.
 
     ```bash
-    $ brownie console
+    $ brownie console --network optimism-kovan
     Brownie v1.9.0 - Python development framework for Ethereum
 
     ReactMixProject is the active project.
@@ -42,7 +45,7 @@ This mix comes with everything you need to start using [React](https://reactjs.o
     Brownie environment is ready.
     ```
 
-2. Run the [deployment script](scripts/deploy.py) to deploy the project's smart contracts.
+4. Run the [deployment script](scripts/deploy.py) to deploy the project's smart contracts.
 
     ```python
     >>> run("deploy")
@@ -58,7 +61,7 @@ This mix comes with everything you need to start using [React](https://reactjs.o
     VyperStorage deployed at: 0xB8485421abC325D172652123dBd71D58b8117070
     ```
 
-3. While Brownie is still running, start the React app in a different terminal.
+5. While Brownie is still running, start the React app in a different terminal.
 
     ```bash
     # make sure to use a different terminal, not the brownie console
@@ -66,12 +69,7 @@ This mix comes with everything you need to start using [React](https://reactjs.o
     yarn start
     ```
 
-4. Connect Metamask to the local Ganache network. In the upper right corner, click the network dropdown menu. Select `Localhost 8545`, or:
-
-    ```bash
-    New Custom RPC
-    http://localhost:8545
-    ```
+4. Connect Metamask to the Kovan test network. In the upper right corner, click the network dropdown menu. Select `Kovan Test Network`.
 
 5. Interact with the smart contracts using the web interface or via the Brownie console.
 
