@@ -29,7 +29,14 @@ RUN yarn install
 
 
 WORKDIR "/home/project"
+# command below runs, but trying anything in the container with HH results in this:
+# root@43dbe2bb6c96:/home/project# npx hardhat compile
+# sh: 1: node-gyp-build: Permission denied
+# sh: 1: node-gyp-build: Permission denied
+# Error HH12: Trying to use a non-local installation of Hardhat, which is not supported.
+# Please install Hardhat locally using npm or Yarn, and try again.
 RUN npm install --save-dev hardhat@dtt
+# so we might have to just do this inside
 
 
 
