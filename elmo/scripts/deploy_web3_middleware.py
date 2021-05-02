@@ -33,7 +33,7 @@ def deploy_l1_erc20_gateway(w3, elmo_1, elmo_2, json_obj, acct):
     ).buildTransaction({
         'from': acct.address,
         'gasPrice': w3.eth.gas_price,
-        'gas': 30000000000
+        'gas': 30000000000,
         'nonce': 1234,
         'chainId': 42
     })
