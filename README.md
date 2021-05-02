@@ -31,7 +31,7 @@ docker-compose up -d --build
 
 Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the container and get to work!
 
-## Running the Frontend
+## Running the Frontend (WIP)
 
 If the contracts have already been deployed, you can spin up the frontend.
 ```
