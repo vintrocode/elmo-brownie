@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import 'antd/dist/antd.css';
 import Header from './Header';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { Menu } from "antd";
+import { Menu} from "antd";
 import Transfer from "./Transfer"
 import Bridge from "./Bridge"
 
@@ -12,6 +12,9 @@ import ERC20Artifact from "../contracts/ERC20.json";
 import L1_GatewayArtifact from "../contracts/OVM_L1ERC20Gateway.json";
 import contractAddress from "../contracts/contract-address.json";
 import { NETWORKS } from "../constants.js";
+import { eachHourOfIntervalWithOptions } from "date-fns/fp";
+import { getKeyThenIncreaseKey } from "antd/lib/message";
+import { set } from "date-fns";
 
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 const targetNetwork = NETWORKS['kovan'];
@@ -26,6 +29,13 @@ const App = () => {
     const [txBeingSent, setTxBeingSent] = useState();
     const [transactionError, setTransactionError] = useState();
     const [networkError, setNetworkError] = useState();
+
+    // const [L1address, setL1Address] = useState();
+    const [layer, setLayer] = useState('L1');
+    const [ethBalance, setEthBalance] = useState();
+    const [elmoBalance, setElmoBalance] = useState();
+    // const [L]
+
 
     //Web3Provider works for transactions but not JsonRpcProvider    
     //const _provider = new ethers.providers.JsonRpcProvider(targetNetwork.rpcUrl);
@@ -42,7 +52,17 @@ const App = () => {
       L1_GatewayArtifact.abi,
       _provider
     );
-      
+
+    const _getEth = async (addr) => {
+      const params = [
+        addr,
+        'latest'
+      ];
+      const res = await window.ethereum.request({ method: 'eth_getBalance', params});
+      return parseInt(res, 16) / 1e18;
+
+    }
+
     const _connectWallet = async (t) => {
       const [selectedAddress] = await window.ethereum.enable();
 
@@ -51,6 +71,13 @@ const App = () => {
       // }
   
       setAddress(selectedAddress);
+
+      // get ethereum balance for the wallet on connection
+      const eth_balance = await _getEth(selectedAddress);
+      console.log(eth_balance);
+      setEthBalance(eth_balance);
+      setBalance(eth_balance);
+      setTokenName('ETH');
 
       // We reinitialize it whenever the user changes their account.
       window.ethereum.on("accountsChanged", ([newAddress]) => {    
@@ -125,9 +152,25 @@ const App = () => {
     
     const _tokenBalance = async () => {
       if (address !== undefined) {
-        const balance = await _token.balanceOf(address) / (1e70) //Used to shrink the number, currently getting overflow
-        setBalance(balance);        
+        const balance = await _token.balanceOf(address) / 1 //Used to shrink the number, currently getting overflow
+        setElmoBalance(balance);        
       }
+    }
+
+    const _switchLayer = () => {
+        if (layer === "L1") {
+          setLayer("L2");
+          setTokenName("ELMO");
+          setBalance(elmoBalance);
+        }
+        else if (layer === "L2") {
+          setLayer("L1")
+          setTokenName("ETH");
+          setBalance(ethBalance);
+        }
+        console.log(layer);
+        console.log(tokenName);
+        console.log(balance);
     }
 
     useEffect(() => {
@@ -136,7 +179,7 @@ const App = () => {
 
     return (
       <div className="Main">
-        <Header address={address} connectWallet={_connectWallet}/> 
+        <Header address={address} connectWallet={_connectWallet}/>
         <BrowserRouter>
           <Menu style={{ textAlign:"center" }} selectedKeys={[route]} mode="horizontal">
             <Menu.Item key="/">
@@ -154,6 +197,8 @@ const App = () => {
   
             <Route exact path="/transfer"><Transfer 
                                              transfer={_transferTokens}
+                                             switchLayer={_switchLayer}
+                                             tokenName={tokenName}
                                              tokenBalance={balance}
                                           />
             </Route>
