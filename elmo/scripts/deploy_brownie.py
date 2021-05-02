@@ -8,4 +8,4 @@ def main():
 
     accounts.add(os.environ['METAMASK_SECRET_KEY'])
     accounts.default = accounts[1]
-    ERC20.deploy(1337, 'ELMO', {'from': accounts.default})
+    ERC20.deploy(69000, 'ELMO', {'from': accounts.default})

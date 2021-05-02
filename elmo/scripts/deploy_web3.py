@@ -1,6 +1,6 @@
 import os, json
 from web3 import Web3
-from brownie import ERC20, L2DepositedERC20, accounts
+from brownie import ERC20, L2DepositedERC20, accounts, network
 
 
 def main():
@@ -9,6 +9,10 @@ def main():
     accounts.add(os.environ['METAMASK_SECRET_KEY'])
     accounts.default = accounts[1]
 
+    # misc shit
+    print(network.show_active())
+    network.gas_limit(10000000)
+
     # intialize web3 providers
     web3_l1 = Web3(Web3.HTTPProvider(os.environ['PROVIDER_KOVAN']))
     web3_l2 = Web3(Web3.HTTPProvider('https://kovan.optimism.io'))
@@ -16,18 +20,18 @@ def main():
     assert web3_l1.isConnected()
     assert web3_l2.isConnected()
 
+    # debug some accounts shit
+    # print(web3_l1.eth.Eth.accounts)
+
     # need the ABI and bytecode for each of the following contracts:
     #   ERC20.sol -- token
     #   L2DepositedERC20.sol -- gateway
     # all are accessible via the brownie contract objects
     
     # deploy the L1 token
-    tx_hash = web3_l1.eth.contract(
+    tx_hash = web3_l2.eth.contract(
         abi=ERC20.abi, 
-        bytecode=ERC20.bytecode).constructor(
-            69000,
-            'ELMO',
-        ).transact(
+        bytecode=ERC20.bytecode).constructor(69000,'ELMO').transact(
             {'from': str(accounts.default)}
         )
     addr_token_l1 = web3_l1.eth.get_transaction_receipt(tx_hash)['contractAddress']
