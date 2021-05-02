@@ -1,6 +1,8 @@
 # ELMO -- Brownie version
 
-ELMO is Venmo but on Ethereum Layer 2. The dev goal of this project was to get experience building a dapp, so the use case was kept simple. The dapp goal is to onboard people to crypto on a cheap, seamless way.  
+ELMO: **E**xchange **L**ayer2 **M**oney **O**ptimistically
+
+ELMO is Venmo but on Ethereum Layer 2. The dev goal of this project was to get experience building a dapp, so the use case was kept simple. The dapp goal is to onboard people to crypto in a cheap, seamless way.  
 
 This repo runs a docker container with brownie and react. Currently, it installs a specific PR of brownie (`feat-hardhat`) for operability with the [Optimism Virtual Machine](https://github.com/ethereum-optimism/optimism-tutorial) to build dapps on Layer 2. Ensure you have `docker` installed before going further.
 
@@ -9,6 +11,7 @@ This repo runs a docker container with brownie and react. Currently, it installs
 Clone the repo and complete the configuration steps below
 ```
 git clone https://github.com/vintrocode/elmo-brownie.git
+git checkout frontend
 ```
 
 Now create a `.env` file and paste the code chunk below, substituting in your values.  **NOTE: MAKE SURE THE `.env` FILE IS IN YOUR `.gitignore`, DON'T PUSH YOUR KEYS TO GITHUB AND GET REKT**
@@ -26,7 +29,7 @@ Now you're ready to build and run the container! This may take a few minutes but
 docker-compose up -d --build
 ```
 
-Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the image and get to work!
+Port 3000 will be exposed to run the react example. Now you can attach VSCode or `docker exec` into the container and get to work!
 
 ## Running the Frontend
 
