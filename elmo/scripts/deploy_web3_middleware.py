@@ -5,6 +5,10 @@ from eth_account import Account
 
 def deploy_l1_erc20(w3, json_obj, acct):
     instance = w3.eth.contract(abi=json_obj['abi'], bytecode=json_obj['bytecode'])
+    
+    # do this to send gas for the tx
+    block = w3.eth.getBlock('latest')
+    gas_limit = block.gasLimit
 
     construct_txn = instance.constructor(
         69000,  # initial supply
@@ -12,7 +16,7 @@ def deploy_l1_erc20(w3, json_obj, acct):
     ).buildTransaction({
         'from': acct.address,
         'gasPrice': w3.eth.gas_price,
-        # 'gas': 100000,
+        'gas': gas_limit,
         'nonce': 0,
         'chainId': 42
     })
@@ -26,6 +30,10 @@ def deploy_l1_erc20(w3, json_obj, acct):
 def deploy_l1_erc20_gateway(w3, elmo_1, elmo_2, json_obj, acct):
     instance = w3.eth.contract(abi=json_obj['abi'], bytecode=json_obj['bytecode'])
 
+    # do this to send gas for the tx
+    block = w3.eth.getBlock('latest')
+    gas_limit = block.gasLimit
+
     construct_txn = instance.constructor(
         elmo_1,  # l1 erc20 addr
         elmo_2,  # l2 gateway addr
@@ -33,8 +41,8 @@ def deploy_l1_erc20_gateway(w3, elmo_1, elmo_2, json_obj, acct):
     ).buildTransaction({
         'from': acct.address,
         'gasPrice': w3.eth.gas_price,
-        'gas': 30000000000,
-        'nonce': 1234,
+        'gas': gas_limit,
+        'nonce': 1,
         'chainId': 42
     })
 
@@ -85,7 +93,7 @@ def main():
     acct_l1 = Account.create('KEYSMASH FJAFJKLDSKF7JKFDJ 1530') 
     web3_l1.middleware_onion.add(construct_sign_and_send_raw_middleware(acct_l1))
     web3_l1.eth.default_account = acct_l1.address
-    
+
     # fund the random account on L1 with kETH from my kovan acct
     funding_txn = web3_l1.eth.account.sign_transaction({
         'nonce': web3_l1.eth.get_transaction_count(os.environ['METAMASK_PUBLIC_ADDRESS']),
