@@ -2,19 +2,9 @@
 
 This mix comes with everything you need to start using [React](https://reactjs.org/) with a Brownie project.
 
-## Setup
-
-4. In [MetaMask](https://metamask.io/) or another web3 browser extension, load the following seed phrase:
-
-    ```bash
-    hill law jazz limb penalty escape public dish stand bracket blue jar
-    ```
-
-    These accounts will automatically be funded.
-
 ## Usage
 
-1. Add Kovan Optimism to the networks list in `brownie`.
+1. Add Optimism to the networks list in `brownie`.
 
     ```
     $ brownie networks add Ethereum optimism-kovan host=https://kovan.optimism.io chainid=69
@@ -27,42 +17,39 @@ This mix comes with everything you need to start using [React](https://reactjs.o
         └─host: https://kovan.optimism.io
     ```
 
-2. Add the following: the OVM compiler, optimism contracts
+    *The contracts have been compiled and the L1 ERC token is deployed on Kovan at `0x620696fb88Afcc8B467636756cD6F232bC8c0f57`*
 
-    ```
-    $ yarn add @eth-optimism/hardhat-ovm
-    $ yarn add @eth-optimism/contracts
-    ```
-
-
-3. Open the Brownie console. Starting the console launches a fresh [Ganache](https://www.trufflesuite.com/ganache) instance in the background.
+2. Open the Brownie console. Starting the console connects to Optimism's Kovan testnet.
 
     ```bash
     $ brownie console --network optimism-kovan
-    Brownie v1.9.0 - Python development framework for Ethereum
+    Brownie v1.14.4 - Python development framework for Ethereum
 
-    ReactMixProject is the active project.
-    Launching 'ganache-cli'...
+    Project is the active project.
     Brownie environment is ready.
     ```
 
-4. Run the [deployment script](scripts/deploy.py) to deploy the project's smart contracts.
+3. Run the [brownie deployment script](scripts/deploy_brownie.py) (WIP) to deploy the project's smart contracts to Optimistic Kovan.
 
     ```python
-    >>> run("deploy")
-    Running 'scripts.deploy.main'...
-    Transaction sent: 0xd1000d04fe99a07db864bcd1095ddf5cb279b43be8e159f94dbff9d4e4809c70
-    Gas price: 0.0 gwei   Gas limit: 6721975
-    SolidityStorage.constructor confirmed - Block: 1   Gas used: 110641 (1.65%)
-    SolidityStorage deployed at: 0xF104A50668c3b1026E8f9B0d9D404faF8E42e642
-
-    Transaction sent: 0xee112392522ed24ac6ab8cc8ba09bfe51c5d699d9d1b39294ba87e5d2a56212c
-    Gas price: 0.0 gwei   Gas limit: 6721975
-    VyperStorage.constructor confirmed - Block: 2   Gas used: 134750 (2.00%)
-    VyperStorage deployed at: 0xB8485421abC325D172652123dBd71D58b8117070
+    >>> run('deploy_brownie')
+    Running 'scripts/deploy_brownie.py::main'...
+    optimism-kovan
+    File "<console>", line 1, in <module>
+    File "brownie/project/scripts.py", line 69, in run
+        return func(*args, **kwargs)
+    File "./scripts/deploy_brownie.py", line 11, in main
+        ERC20.deploy(1337, 'ELMO', {'from': accounts.default})
+    File "brownie/network/contract.py", line 593, in __call__
+        return tx["from"].deploy(
+    File "brownie/network/account.py", line 463, in deploy
+        exc = VirtualMachineError(e)
+    File "brownie/exceptions.py", line 85, in __init__
+        raise ValueError(exc["message"]) from None
+    ValueError: Cannot submit unprotected transaction
     ```
 
-5. While Brownie is still running, start the React app in a different terminal.
+<!-- 5. While Brownie is still running, start the React app in a different terminal.
 
     ```bash
     # make sure to use a different terminal, not the brownie console
@@ -134,4 +121,4 @@ To get started with Brownie:
 * For more in-depth information, read the [Brownie documentation](https://eth-brownie.readthedocs.io/en/stable/)
 
 
-Any questions? Join our [Gitter](https://gitter.im/eth-brownie/community) channel to chat and share with others in the community.
+Any questions? Join our [Gitter](https://gitter.im/eth-brownie/community) channel to chat and share with others in the community. -->
