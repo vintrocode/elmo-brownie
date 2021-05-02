@@ -11,7 +11,6 @@ This repo runs a docker container with brownie and react. Currently, it installs
 Clone the repo and complete the configuration steps below
 ```
 git clone https://github.com/vintrocode/elmo-brownie.git
-git checkout frontend
 ```
 
 Now create a `.env` file and paste the code chunk below, substituting in your values.  **NOTE: MAKE SURE THE `.env` FILE IS IN YOUR `.gitignore`, DON'T PUSH YOUR KEYS TO GITHUB AND GET REKT**
