@@ -1,6 +1,4 @@
 .env
 .vscode/
 elmo/.github
-elmo/node_modules
-elmo/client/node_modules
-
+node_modules
