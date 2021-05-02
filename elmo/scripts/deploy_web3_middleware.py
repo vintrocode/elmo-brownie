@@ -94,7 +94,7 @@ def main():
     web3_l1.middleware_onion.add(construct_sign_and_send_raw_middleware(acct_l1))
     web3_l1.eth.default_account = acct_l1.address
 
-    # fund the random account on L1 with kETH from my kovan acct
+    # fund the random account on L1 with kETH from your kovan acct -- make sure you've got kETH, if not google "kovan faucet"
     funding_txn = web3_l1.eth.account.sign_transaction({
         'nonce': web3_l1.eth.get_transaction_count(os.environ['METAMASK_PUBLIC_ADDRESS']),
         'gasPrice': web3_l1.eth.gas_price,
@@ -139,52 +139,38 @@ def main():
     elmo_2 = deploy_l2_erc20(web3_l2, erc20_l2, acct_l2)
     elmo_gateway = deploy_l1_erc20_gateway(web3_l1, elmo_1, elmo_2, l1_erc20_gateway, acct_l1)
 
-    # # construct the txns and deploy the contracts now
-    # l1_tx_hash = web3_l1.eth.contract(
-    #     abi=erc20_l1['abi'],
-    #     bytecode=erc20_l1['bytecode']
-    # ).constructor(
-    #     69000,  # initial supply
-    #     'ELMO'  # name
-    # ).sign_transaction(
-    # ).transact(
-    #     { 'gasPrice': 0 }
-    # )  # default address should point to L1 middleware
-    # addr_token_l1 = web3_l1.eth.wait_for_transaction_receipt(l1_tx_hash)['contractAddress']
-    # print("Layer 1 ERC20 deployed at " + str(addr_token_l1))
+    # create deployed contract objects
+    elmo1 = web3_l1.eth.contract(abi=erc20_l1['abi'], address=elmo_1)
+    elmo2 = web3_l2.eth.contract(abi=erc20_l2['abi'], address=elmo_2)
+    elmoGateway = web3_l1.eth.contract(abi=l1_erc20_gateway['abi'], address=elmo_gateway)
 
-    # l2_tx_hash = web3_l2.eth.contract(
-    #     abi=erc20_l2['abi'],
-    #     bytecode=erc20_ls['bytecode']
-    # ).constructor(
-    #     '0x4200000000000000000000000000000000000007',  # l2MessengerAddress
-    #     'ELMO2'  # name
-    # ).sign_transaction(
-    # ).transact(
-    #     { 'gasPrice': 0 }  # no gas mfer
-    # )  #default address should point to L2 middleware
-    # addr_token_l2 = web3_l2.eth.wait_for_transaction_receipt(l2_tx_hash)['contractAddress']
-    # print("Layer 2 ERC20 deployed at " + str(addr_token_l2))
 
-    print("IF WE MADE IT TO THIS PRINT STATEMENT LET'S FUCKING GO WE'RE IN BUSINESS")
 
-    # debug some accounts shit
-    # print(web3_l1.eth.Eth.accounts)
+    print("Deploys successful. Send some bread to the boys...")
+    # Alex: 0x595b57BA293565b65CfB0b0b0e757B88Ad788b4a
+    # RJ: 0x81431b69B1e0E334d4161A13C2955e0f3599381e
+    # Ben: 0xEd9A98c2ea26705CDA86d7D5399b50C53270Cc91
+    # Vince: 0x22C74a95c53FD6cFB886B37FFCEDB6FEedbE2023
 
-    # need the ABI and bytecode for each of the following contracts:
-    #   ERC20.sol -- token
-    #   L2DepositedERC20.sol -- gateway
-    # all are accessible via the brownie contract objects
+    the_boys = {
+        'Alex': '0x595b57BA293565b65CfB0b0b0e757B88Ad788b4a', 
+        'RJ': '0x81431b69B1e0E334d4161A13C2955e0f3599381e', 
+        'Ben': '0xEd9A98c2ea26705CDA86d7D5399b50C53270Cc91', 
+        'Vince': '0x22C74a95c53FD6cFB886B37FFCEDB6FEedbE2023'
+    }
+
+    for boi in the_boys:
+        addr = the_boys[boi]
+        # Send Elmo1
+        tx_hash = elmo1.functions.transfer(addr, 10000).transact({'from': acct_l1.address})
+        tx_receipt = web3_l1.eth.wait_for_transaction_receipt(tx_hash)
+        boi_bal = elmo1.functions.balanceOf(addr).call()
+        print("YO " + str(boi) + " YOU JUST GOT " + str(boi_bal) + " MOTHAF*KIN ELMO (!!!)")
     
-    # deploy the L1 token
-    # tx_hash = web3_l2.eth.contract(
-    #     abi=ERC20.abi, 
-    #     bytecode=ERC20.bytecode).constructor(69000,'ELMO').transact(
-    #         {'from': }
-    #     )
-    # addr_token_l1 = web3_l1.eth.get_transaction_receipt(tx_hash)['contractAddress']
+    print("AAAHHH LET'S GO WE'RE DONE BABYYYYY")
 
-    #print('Done!')
+
+
 
 if __name__ == '__main__':
     main()
