@@ -49,7 +49,7 @@ def deploy_l1_erc20_gateway(w3, elmo_1, elmo_2, json_obj, acct):
     signed = w3.eth.account.sign_transaction(construct_txn, acct.key)
     tx_hash = w3.eth.send_raw_transaction(signed.rawTransaction)
     addr = w3.eth.wait_for_transaction_receipt(tx_hash)['contractAddress']
-    print("Layer 1 Gateway to L2 address: " + str(addr))
+    print("OVM_L1ERC20Gateway -- Layer 1 Gateway to L2 address: " + str(addr))
     return addr
 
 def deploy_l2_erc20(w3, json_obj, acct):

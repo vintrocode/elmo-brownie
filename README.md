@@ -21,6 +21,7 @@ METAMASK_SECRET_KEY={your secret here}
 PROVIDER_MAINNET={your mainnet url here}
 PROVIDER_KOVAN={your kovan url here}
 WEB3_INFURA_PROJECT_ID={your infura project id here}
+ETHERSCAN_TOKEN={your etherscan API token here}
 ```
 
 Now you're ready to build and run the container! This may take a few minutes but it's a one time cost.
