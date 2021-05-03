@@ -14,5 +14,8 @@ module.exports = {
       gasPrice: 0,
       ovm: true // This sets the network as using the ovm and ensure contract will be compiled against that.
     }
+  },
+  paths: {
+    artifacts: "./client/src/artifacts"
   }
 };

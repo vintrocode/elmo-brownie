@@ -1,4 +1,5 @@
 py-solc-x
-pandas
 urllib3
 chardet
+web3
+eth_account

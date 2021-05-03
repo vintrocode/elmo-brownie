@@ -29,6 +29,7 @@ RUN yarn install
 
 
 WORKDIR "/home/project"
+
 # command below runs, but trying anything in the container with HH results in this:
 # root@43dbe2bb6c96:/home/project# npx hardhat compile
 # sh: 1: node-gyp-build: Permission denied
