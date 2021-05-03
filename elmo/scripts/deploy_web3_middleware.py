@@ -61,7 +61,7 @@ def deploy_l2_erc20(w3, json_obj, acct):
     ).buildTransaction({
         'from': acct.address,
         'gasPrice': 0,
-        'nonce': 0,
+        'nonce':  w3.eth.getTransactionCount(acct.address),
         'chainId': 69
     })
 
@@ -130,11 +130,11 @@ def main():
     with open('./node_modules/@eth-optimism/contracts/artifacts/contracts/optimistic-ethereum/OVM/bridge/tokens/OVM_L1ERC20Gateway.sol/OVM_L1ERC20Gateway.json') as f:
         l1_erc20_gateway = json.load(f)
 
-    
+
 
     print("Artifacts loaded")
 
-    # deploy the contracts
+    # deploy the contracts, addresses returned
     elmo_1 = deploy_l1_erc20(web3_l1, erc20_l1, acct_l1)
     elmo_2 = deploy_l2_erc20(web3_l2, erc20_l2, acct_l2)
     elmo_gateway = deploy_l1_erc20_gateway(web3_l1, elmo_1, elmo_2, l1_erc20_gateway, acct_l1)
@@ -145,8 +145,20 @@ def main():
     elmoGateway = web3_l1.eth.contract(abi=l1_erc20_gateway['abi'], address=elmo_gateway)
 
 
+    # initialize the L2 ERC20 to relay messages to the L1 Gateway
+    tx0 = elmo2.functions.init(elmo_gateway).buildTransaction(
+        {
+            'gasPrice': 0, 
+            'nonce': web3_l2.eth.getTransactionCount(acct_l2.address),
+        }
+    )
+    tx0_hash = web3_l2.eth.send_transaction(tx0)
+    web3_l2.eth.wait_for_transaction_receipt(tx0_hash)['blockHash']
 
-    print("Deploys successful. Send some bread to the boys...")
+
+
+
+    print("L2 ERC20 initialized the L1 Gateway, deploys successful, time to send some bread to the boys...")
     # Alex: 0x595b57BA293565b65CfB0b0b0e757B88Ad788b4a
     # RJ: 0x81431b69B1e0E334d4161A13C2955e0f3599381e
     # Ben: 0xEd9A98c2ea26705CDA86d7D5399b50C53270Cc91
