@@ -42,7 +42,7 @@ const App = () => {
     const _provider = new ethers.providers.Web3Provider(window.ethereum);
 
     const _token = new ethers.Contract(
-      contractAddress.ERC20,
+      contractAddress.L2ERC20,
       ERC20Artifact.abi,
       _provider
     );
@@ -162,10 +162,12 @@ const App = () => {
     }, [route, address]);
     
     const _tokenBalance = async () => {
+      console.log('trying balance of ...')
       if (address !== undefined) {
         const balance = await _token.balanceOf(address) / 1 //Used to shrink the number, currently getting overflow
         setElmoBalance(balance);        
       }
+      console.log('past it')
     }
 
     const _switchLayer = () => {

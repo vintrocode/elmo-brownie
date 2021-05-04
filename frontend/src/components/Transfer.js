@@ -19,7 +19,6 @@ const Transfer = ({ tokenBalance, tokenName, switchLayer, transfer }) => {
         <div className="container">
             <Card className="transfer_card">
                 <h1 style={{ textAlign:"center", size: 4 }}>Balance: {tokenBalance} {tokenName}</h1>
-                <Button onClick={() =>switchLayer()}>Switch</Button>
                 <Form {...layout} className="form_container" form={form} name="control-hooks">
                     <Form.Item name="to" label="To" rules={[{ required: true }]}>
                         <Input className="input_box" onChange={e => setTo(e.target.value)}/>
