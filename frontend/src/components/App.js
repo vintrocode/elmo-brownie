@@ -121,8 +121,14 @@ const App = () => {
     
     const _deposit = async (amount) => {
       try {
+        console.log('connecting to gateway')
         const signedGateway = _gateway.connect(_provider.getSigner(address));
-        const tx = await signedGateway.deposit(amount)  
+        const signedToken = _token.connect(_provider.getSigner(address));
+        console.log('approving transfer...')
+        const tx1 = await signedToken.approve(contractAddress.L1_Gateway, amount);
+        console.log('depositing to L2...')
+        const tx = await signedGateway.deposit(amount);
+        console.log('deposited!')
         setTxBeingSent(tx.hash);
         console.log(txBeingSent);
         const receipt = await tx.wait();
@@ -142,6 +148,11 @@ const App = () => {
       } finally {
         setTxBeingSent(undefined);
       }
+    }
+
+    const _withdrawl = async (amount) => {
+      console.log('withdrawl:')
+      console.log(amount)
     }
 
     useEffect(() => {
@@ -204,7 +215,7 @@ const App = () => {
             </Route>
   
             <Route exact path="/bridge">
-              <Bridge deposit={_deposit}/>
+              <Bridge deposit={_deposit} withdrawl={_withdrawl}/>
             </Route>
 
           </Switch>

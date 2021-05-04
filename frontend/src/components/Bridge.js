@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Card } from 'antd';
 
 
-const Bridge = ({ deposit }) => {
+const Bridge = ({ deposit, withdrawl }) => {
     const [form] = Form.useForm();
-    const [amount, setAmount] = useState('');
+    const [depAmount, setDepAmount] = useState('');
+    const [withdrawlAmount, setWithdrawlAmount] = useState('');
 
     const layout = {
         labelCol: { span: 8 },
@@ -15,16 +16,24 @@ const Bridge = ({ deposit }) => {
       };
 
     return (
-        <Form {...layout} form={form} name="control-hooks">
-            <Form.Item name="deposit" label="Deposit" rules={[{ required: true }]}>
-                <Input onChange={e => setAmount(e.target.value)}/>
-            </Form.Item>
-            <Form.Item {...tailLayout}>
-                    <Button onClick={() => deposit(amount)} type="primary" htmlType="submit">
-                        Deposit
-                    </Button>
-            </Form.Item>
-        </Form>
+        <Card className="bridge_card">
+            <Form {...layout} form={form} name="control-hooks">
+                <Form.Item name="deposit" label="Deposit" >
+                    <Input onChange={e => setDepAmount(e.target.value)}/>
+                </Form.Item>
+                <Form.Item name="withdrawl" label="Withdrawl">
+                    <Input onChange={e => setWithdrawlAmount(e.target.value)}/>
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                        <Button onClick={() => deposit(depAmount)} type="primary" htmlType="submit">
+                            Deposit
+                        </Button>
+                        <Button onClick={() => withdrawl(withdrawlAmount)} type="primary" htmlType="submit">
+                            Withdrawl
+                        </Button>
+                </Form.Item>
+            </Form>
+        </Card>
     )
 }
 
