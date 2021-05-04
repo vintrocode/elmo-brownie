@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.transfer_card {
+    margin: 5rem 0rem;
+    border-radius: 1rem;
+    width: 75%;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input_box {
+    width: 100%;
+}
