@@ -37,7 +37,7 @@ def deploy_l1_erc20_gateway(w3, elmo_1, elmo_2, json_obj, acct):
     construct_txn = instance.constructor(
         elmo_1,  # l1 erc20 addr
         elmo_2,  # l2 gateway addr
-        '0x48062eD9b6488EC41c4CfbF2f568D7773819d8C9'  # address of proxy for L1 messenger
+        '0xF20C38fCdDF0C790319Fd7431d17ea0c2bC9959c'  # address of proxy for L1 messenger
     ).buildTransaction({
         'from': acct.address,
         'gasPrice': w3.eth.gas_price,
@@ -100,7 +100,7 @@ def main():
         'gasPrice': web3_l1.eth.gas_price,
         'gas': 100000,
         'to': acct_l1.address,
-        'value': web3_l1.toWei(0.05,'ether')
+        'value': web3_l1.toWei(0.2,'ether')
     },
     os.environ['METAMASK_SECRET_KEY'])
     tx_hash = web3_l1.eth.send_raw_transaction(funding_txn.rawTransaction)
