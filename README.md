@@ -40,7 +40,7 @@ $ docker exec -it elmo-brownie_eth-brownie_1 /bin/bash
 
 If the contracts have already been deployed, you can spin up the frontend.
 ```
-Swith to ui-testnet branch
+# Swith to ui-testnet branch
 yarn start-frontend
 ```
 
