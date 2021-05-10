@@ -104,7 +104,7 @@ def main():
     },
     os.environ['METAMASK_SECRET_KEY'])
     tx_hash = web3_l1.eth.send_raw_transaction(funding_txn.rawTransaction)
-    web3_l1.eth.wait_for_transaction_receipt(tx_hash)
+    assert web3_l1.eth.wait_for_transaction_receipt(tx_hash)['status'] == 1, 'Transaction reverted by EVM'
     print('Money sent from your Metamask to ' + str(acct_l1.address) + " successfully!")
 
     # configure the L2 middlware account
