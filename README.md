@@ -4,7 +4,7 @@ ELMO: **E**xchange **L**ayer2 **M**oney **O**ptimistically
 
 ELMO is Venmo but on Ethereum Layer 2. The dev goal of this project was to get experience building a dapp, so the use case was kept simple. The dapp goal is to onboard people to crypto in a cheap, seamless way.  
 
-This repo runs a docker container with brownie and react. Currently, it installs a specific PR of brownie (`feat-hardhat`) for operability with the [Optimism Virtual Machine](https://github.com/ethereum-optimism/optimism-tutorial) to build dapps on Layer 2. Ensure you have `docker` installed before going further.
+This repo runs a docker container with brownie and react. Brownie has been updated with support for hardhat, which is needed for operability with the [Optimism Virtual Machine](https://github.com/ethereum-optimism/optimism-tutorial) to build dapps on Layer 2. Ensure you have `docker` installed before going further.
 
 ## Getting Started
 

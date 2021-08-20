@@ -17,7 +17,7 @@ COPY ./requirements.txt /home/
 RUN python3 -m pip install -r /home/requirements.txt
 RUN python3 -m pip install pipx
 RUN python3 -m pipx ensurepath
-RUN pipx install git+https://github.com/eth-brownie/brownie.git@feat-hardhat
+RUN pipx install git+https://github.com/eth-brownie/brownie.git
 
 
 RUN npm install -g ganache-cli
